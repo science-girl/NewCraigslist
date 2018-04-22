@@ -13,7 +13,8 @@ function getCategoryData(name) {
 
   xhr.onreadystatechange = function() {
     if (xhr.readyState == XMLHttpRequest.DONE) {
-      alert(xhr.responseText);
+      localStorage.setItem("postsData", xhr.responseText);
+      //alert(xhr.responseText);
     }
   };
 }
