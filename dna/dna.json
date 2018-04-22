@@ -37,6 +37,11 @@
           "Name": "city",
           "DataFormat": "string",
           "Sharing": "public"
+        },
+        {
+          "Name": "category",
+          "DataFormat": "string",
+          "Sharing": "public"
         }
       ],
       "Functions": [
@@ -47,6 +52,21 @@
         },
         {
           "Name": "writePost",
+          "CallingType": "json",
+          "Exposure": "public"
+        },
+        {
+          "Name": "readYourPosts",
+          "CallingType": "json",
+          "Exposure": "public"
+        },
+        {
+          "Name": "readPostsByCity",
+          "CallingType": "json",
+          "Exposure": "public"
+        },
+        {
+          "Name": "readPostsByCityAndCategory",
           "CallingType": "json",
           "Exposure": "public"
         }
