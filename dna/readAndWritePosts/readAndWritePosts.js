@@ -1,8 +1,34 @@
+/**
+ * Populates holochain each time instance restarts
+ * This is for dev only and not for production use
+ **/
+function populateHC() {
+  writePost({
+    title: "Paint my fence?",
+    category: "Jobs",
+    city: "Kelowna",
+    details:
+      "My fence is in need of a new coat of paint and primer. Will pay handsomely.",
+    email: "earnest@gmail.com",
+    timestamp: 12345
+  });
+  writePost({
+    title: "Spectaular backrubs, seeking",
+    category: "Jobs",
+    city: "Vancouver",
+    details: "In need of a great backrub",
+    email: "soreBack@gmail.com",
+    timestamp: 12345
+  });
+}
+
 function genesis() {
+  populateHC();
   commit("city", "Vancouver");
   commit("city", "Kelowna");
   return true;
 }
+
 // this is called whenever a write/commmit
 // call is made
 function validateCommit(entryName, entry, header, pkg, sources) {
@@ -68,6 +94,7 @@ function readYourPosts() {
   var allLinksForAgent = getLinks(agentHash, "postsByUser", {
     Load: true
   });
+  debug(allLinksForAgent);
   debug("Number of links: " + allLinksForAgent.length);
   return allLinksForAgent.map(function(link) {
     debug(JSON.stringify(link));
