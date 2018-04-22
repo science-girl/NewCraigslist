@@ -41,11 +41,7 @@
       ],
       "Functions": [
         {
-          "Name": "holoTextCreate",
-          "CallingType": "string"
-        },
-        {
-          "Name": "holoTextRead",
+          "Name": "readPost",
           "CallingType": "json",
           "Exposure": "public"
         },

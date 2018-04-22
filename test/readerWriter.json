@@ -18,7 +18,7 @@
     {
       "Convey": "read a post from New Craigslist",
       "Zome": "readAndWritePosts",
-      "FnName": "holoTextRead",
+      "FnName": "readPost",
       "Input": "%h1%",
       "Output": {
         "title": "Great Bike",

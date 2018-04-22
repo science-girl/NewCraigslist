@@ -53,7 +53,7 @@ function writePost(data) {
   return hash;
 }
 
-function holoTextRead(hash) {
+function readPost(hash) {
   // get returns entry corresponding to the hash
   // or a HashNotFound message
   return get(hash, { Local: true });
