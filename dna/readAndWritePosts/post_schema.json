@@ -1,0 +1,25 @@
+{
+  "title": "Post Schema",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "details": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "timestamp": {
+      "type": "integer"
+    }
+  },
+  "required": ["title", "category", "city", "email", "timestamp"]
+}
