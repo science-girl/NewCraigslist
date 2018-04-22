@@ -4,7 +4,13 @@
       "Convey": "write a holoText entry",
       "Zome": "readerWriter",
       "FnName": "holoTextWrite",
-      "Input": "Hello World",
+      "Input": {
+        "title": "Great Bike",
+        "details":
+          "Rode this bike for 10 years. Selling it because I'm moving.",
+        "email": "fakeperson@gmail.com",
+        "timestamp": 12345
+      },
       "Output": "%h%"
     },
     {
@@ -12,7 +18,13 @@
       "Zome": "readerWriter",
       "FnName": "holoTextRead",
       "Input": "%h%",
-      "Output": "Hello World"
+      "Output": {
+        "title": "Great Bike",
+        "details":
+          "Rode this bike for 10 years. Selling it because I'm moving.",
+        "email": "fakeperson@gmail.com",
+        "timestamp": 12345
+      }
     }
   ]
 }
