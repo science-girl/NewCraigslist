@@ -42,6 +42,11 @@
           "Name": "category",
           "DataFormat": "string",
           "Sharing": "public"
+        },
+        {
+          "Name": "cityAndCat",
+          "DataFormat": "string",
+          "Sharing": "public"
         }
       ],
       "Functions": [

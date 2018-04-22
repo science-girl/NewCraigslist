@@ -26,6 +26,7 @@ function genesis() {
   populateHC();
   commit("city", "Vancouver");
   commit("city", "Kelowna");
+  commit("cityAndCat", "KelownaJobs");
   return true;
 }
 
@@ -38,6 +39,8 @@ function validateCommit(entryName, entry, header, pkg, sources) {
     case "postData":
       return true;
     case "city":
+      return true;
+    case "cityAndCat":
       return true;
     default:
       return false;
@@ -65,6 +68,11 @@ function validatePut(data) {
 function writePost(data) {
   var hash = commit("postData", data);
   var me = App.Agent.Hash;
+  var cityAndCat = makeHash("cityAndCat", data["city"] + data["category"]);
+
+  // if cityAndCat does not yet exist, create it:
+  if (cityAndCat == null) commit("cityAndCat", cityAndCat);
+
   commit("cityLinks", {
     Links: [
       { Base: me, Link: hash, Tag: "postsByUser" },
@@ -74,14 +82,14 @@ function writePost(data) {
         Tag: "postsByCity"
       },
       {
-        Base: makeHash("city", data["city"]),
-        Link: makeHash("category", data["category"]),
-        Tag: "postsByCityToCategory"
-      },
-      {
         Base: makeHash("category", data["category"]),
         Link: hash,
         Tag: "postsByCategory"
+      },
+      {
+        Base: cityAndCat,
+        Link: hash,
+        Tag: "cityAndCat"
       }
     ]
   });
@@ -90,14 +98,12 @@ function writePost(data) {
 
 function readYourPosts() {
   var agentHash = App.Agent.Hash;
-  debug(agentHash);
   var allLinksForAgent = getLinks(agentHash, "postsByUser", {
     Load: true
   });
-  debug(allLinksForAgent);
   debug("Number of links: " + allLinksForAgent.length);
   return allLinksForAgent.map(function(link) {
-    debug(JSON.stringify(link));
+    //debug(JSON.stringify(link));
     return link.Entry;
   });
 }
@@ -108,12 +114,32 @@ function readPostsByCity(city) {
 
   debug("Number of links: " + linksForCity.length);
   return linksForCity.map(function(link) {
-    debug(JSON.stringify(link));
+    //debug(JSON.stringify(link));
     return link.Entry;
   });
 }
 
-function readPostsByCityAndCategory(city, category) {}
+function readPostsByCategory(category) {
+  var hashedCat = makeHash("category", category);
+  var linksForCat = getLinks(hashedCat, "postsByCategory", { Load: true });
+
+  debug("Number of links: " + linksForCat.length);
+  return linksForCat.map(function(link) {
+    //debug(JSON.stringify(link));
+    return link.Entry;
+  });
+}
+
+function readPostsByCityAndCategory(params) {
+  var hashedCat = makeHash("cityAndCat", params.city + params.category);
+  var linksForCat = getLinks(hashedCat, "cityAndCat", { Load: true });
+
+  debug("Number of links: " + linksForCat.length);
+  return linksForCat.map(function(link) {
+    //debug(JSON.stringify(link));
+    return link.Entry;
+  });
+}
 
 function readPost(hash) {
   // get returns entry corresponding to the hash
