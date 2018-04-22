@@ -1,28 +1,43 @@
+function getCategoryData(name) {
+  console.log("button clicked");
+  var xhr = new XMLHttpRequest();
+  var url = "/fn/readAndWritePosts/readPostsByCityAndCategory";
+  xhr.open("POST", url, true);
+  xhr.setRequestHeader("Content-type", "application/json");
+  var category = name;
+
+  var data = JSON.stringify({
+    category: category,
+    city: "Vancouver"
+  });
+  xhr.send(data);
+
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState == XMLHttpRequest.DONE) {
+      alert(xhr.responseText);
+    }
+  };
+}
 document.getElementsByClassName("category")[0].onclick = function onClick(
   event
 ) {
-  //event.preventDefault();
-  console.log("button clicked");
-  var xhr = new XMLHttpRequest();
-  var url = "/fn/readAndWritePosts/readYourPosts";
-  xhr.open("GET", url, true);
-  xhr.setRequestHeader("Content-type", "application/json");
+  getCategoryData(document.getElementsByClassName("category")[0].name);
+};
 
-  alert(document.getElementsByClassName("category")[0].name);
+document.getElementsByClassName("category")[1].onclick = function onClick(
+  event
+) {
+  getCategoryData(document.getElementsByClassName("category")[1].name);
+};
 
-  // var data = JSON.stringify({
-  //   title: title,
-  //   details: details,
-  //   category: category,
-  //   email: email,
-  //   city: "Vancouver",
-  //   timestamp: Date.now()
-  // });
-  // xhr.send(data);
-  //
-  // xhr.onreadystatechange = function() {
-  //   if (xhr.readyState == XMLHttpRequest.DONE) {
-  //     alert(xhr.responseText);
-  //   }
-  // };
+document.getElementsByClassName("category")[2].onclick = function onClick(
+  event
+) {
+  getCategoryData(document.getElementsByClassName("category")[2].name);
+};
+
+document.getElementsByClassName("category")[3].onclick = function onClick(
+  event
+) {
+  getCategoryData(document.getElementsByClassName("category")[3].name);
 };
