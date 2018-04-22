@@ -24,4 +24,5 @@ document.getElementById("createPostForm").onsubmit = function onSubmit(event) {
   details = "";
   category = "";
   email = "";
+  window.history.back();
 };
