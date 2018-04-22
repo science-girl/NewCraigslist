@@ -1,5 +1,4 @@
 function getCategoryData(name) {
-  console.log("button clicked");
   var xhr = new XMLHttpRequest();
   var url = "/fn/readAndWritePosts/readPostsByCityAndCategory";
   xhr.open("POST", url, true);
