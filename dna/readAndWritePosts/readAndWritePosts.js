@@ -6,7 +6,7 @@ function populateHC() {
   writePost({
     title: "Paint my fence?",
     category: "Jobs",
-    city: "Kelowna",
+    city: "Vancouver",
     details:
       "My fence is in need of a new coat of paint and primer. Will pay handsomely.",
     email: "earnest@gmail.com",
@@ -20,6 +20,31 @@ function populateHC() {
     email: "soreBack@gmail.com",
     timestamp: Date.now()
   });
+  writePost({
+    title: "Paint my fence",
+    category: "Personals",
+    city: "Vancouver",
+    details: "please?",
+    email: "paint@gmail.com",
+    timestamp: Date.now()
+  });
+
+  writePost({
+    title: "Miniature Home",
+    category: "Housing",
+    city: "Vancouver",
+    details: "surprisingly spacious",
+    email: "mini@gmail.com",
+    timestamp: Date.now()
+  });
+  writePost({
+    title: "Futon",
+    category: "ForSale",
+    city: "Vancouver",
+    details: "like new",
+    email: "mini@gmail.com",
+    timestamp: Date.now()
+  });
 }
 
 function genesis() {
@@ -27,6 +52,11 @@ function genesis() {
   commit("city", "Vancouver");
   commit("city", "Kelowna");
   commit("cityAndCat", "KelownaJobs");
+  commit("cityAndCat", "VancouverJobs");
+  commit("cityAndCat", "VancouverForSale");
+  commit("cityAndCat", "VancouverHousing");
+  commit("cityAndCat", "VancouverPersonals");
+
   return true;
 }
 
@@ -70,8 +100,11 @@ function writePost(data) {
   var me = App.Agent.Hash;
   var cityAndCat = makeHash("cityAndCat", data["city"] + data["category"]);
 
-  // if cityAndCat does not yet exist, create it:
-  if (cityAndCat == null) commit("cityAndCat", cityAndCat);
+  // TODO: if cityAndCat does not yet exist, create it:
+  if (get(cityAndCat) === null) {
+    console.log(data["city"] + data["category"] + " dne");
+    commit("cityAndCat", cityAndCat);
+  }
 
   commit("cityLinks", {
     Links: [
@@ -120,6 +153,7 @@ function readPostsByCity(city) {
 }
 
 function readPostsByCategory(category) {
+  debug(category);
   var hashedCat = makeHash("category", category);
   var linksForCat = getLinks(hashedCat, "postsByCategory", { Load: true });
 
@@ -132,6 +166,10 @@ function readPostsByCategory(category) {
 
 function readPostsByCityAndCategory(params) {
   var hashedCat = makeHash("cityAndCat", params.city + params.category);
+  if (get(hashedCat) === null) {
+    console.log("hash dne");
+    return [];
+  }
   var linksForCat = getLinks(hashedCat, "cityAndCat", { Load: true });
 
   debug("Number of links: " + linksForCat.length);
