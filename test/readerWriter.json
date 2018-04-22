@@ -7,21 +7,23 @@
       "Input": {
         "title": "Great Bike",
         "category": "ForSale",
+        "city": "Vancouver",
         "details":
           "Rode this bike for 10 years. Selling it because I'm moving.",
         "email": "fakeperson@gmail.com",
         "timestamp": 12345
       },
-      "Output": "%h%"
+      "Output": "%h1%"
     },
     {
       "Convey": "read a holoText entry",
       "Zome": "readerWriter",
       "FnName": "holoTextRead",
-      "Input": "%h%",
+      "Input": "%h1%",
       "Output": {
         "title": "Great Bike",
         "category": "ForSale",
+        "city": "Vancouver",
         "details":
           "Rode this bike for 10 years. Selling it because I'm moving.",
         "email": "fakeperson@gmail.com",

@@ -1,22 +1,12 @@
 {
-  "title": "readerWriter Schema",
+  "title": "Post Schema",
   "type": "object",
   "properties": {
-    "title": {
+    "description": {
       "type": "string"
     },
-    "category": {
+    "language": {
       "type": "string"
-    },
-    "details": {
-      "type": "string"
-    },
-    "email": {
-      "type": "string"
-    },
-    "timestamp": {
-      "type": "integer"
     }
-  },
-  "required": ["title", "category", "email", "timestamp"]
+  }
 }

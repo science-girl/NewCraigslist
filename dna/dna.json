@@ -24,8 +24,19 @@
       "Entries": [
         {
           "Name": "holoText",
+          "DataFormat": "json",
+          "SchemaFile": "post_schema.json",
+          "Sharing": "public"
+        },
+        {
+          "Name": "cityLinks",
+          "DataFormat": "links",
+          "Sharing": "public"
+        },
+        {
+          "Name": "city",
           "DataFormat": "string",
-          "Sharing": "private"
+          "Sharing": "public"
         }
       ],
       "Functions": [
@@ -35,11 +46,13 @@
         },
         {
           "Name": "holoTextRead",
-          "CallingType": "string"
+          "CallingType": "json",
+          "Exposure": "public"
         },
         {
           "Name": "holoTextWrite",
-          "CallingType": "string"
+          "CallingType": "json",
+          "Exposure": "public"
         }
       ]
     }
