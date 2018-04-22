@@ -1,6 +1,5 @@
 document.getElementById("seeYourPostButton").onclick = function onClick(event) {
-  event.preventDefault();
-  console.log("button clicked");
+
   var xhr = new XMLHttpRequest();
   var url = "/fn/readAndWritePosts/readYourPosts";
   xhr.open("GET", url, true);
@@ -9,7 +8,8 @@ document.getElementById("seeYourPostButton").onclick = function onClick(event) {
   xhr.send();
   xhr.onreadystatechange = function() {
     if (xhr.readyState == XMLHttpRequest.DONE) {
-      alert(xhr.responseText);
+      console.log(xhr.responseText);
+      localStorage.setItem("postsData",xhr.responseText);
     }
   };
 };

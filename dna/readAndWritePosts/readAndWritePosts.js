@@ -10,7 +10,7 @@ function populateHC() {
     details:
       "My fence is in need of a new coat of paint and primer. Will pay handsomely.",
     email: "earnest@gmail.com",
-    timestamp: 12345
+    timestamp: Date.now()
   });
   writePost({
     title: "Spectaular backrubs, seeking",
@@ -18,7 +18,7 @@ function populateHC() {
     city: "Vancouver",
     details: "In need of a great backrub",
     email: "soreBack@gmail.com",
-    timestamp: 12345
+    timestamp: Date.now()
   });
 }
 
