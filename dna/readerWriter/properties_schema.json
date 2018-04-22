@@ -1,0 +1,22 @@
+{
+  "title": "readerWriter Schema",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string"
+    },
+    "details": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "timestamp": {
+      "type": "integer"
+    }
+  },
+  "required": ["title", "category", "email", "timestamp"]
+}

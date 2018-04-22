@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<head>
+</head>
+  <body>
+    <form id="createPostForm">
+      <div>
+        <label for="titlePostInput">Post Title</label>
+        <input id="titlePostInput" type="text" name="titlePostInput">
+      </div>
+
+      <div>
+      <label for="postType">Post Type</label>
+      <select name="text" id="categoryPostInput">
+        <option value="jobs">Jobs</option>
+        <option value="housing">Housing</option>
+        <option value="forSale">For Sale</option>
+        <option value="personals">Personals</option>
+      </select>
+      </div>
+      <div>
+        <label for="detailPostInput">Give some details about your post</label>
+        <div>
+          <textarea id="detailPostInput" rows="10" cols="70" name="detailPostInput"></textarea>
+        </div>
+      </div>
+
+      <div>
+        <label for="emailInput">Email</label>
+        <input id="emailInput" type="text" name="emailInput">
+      </div>
+
+      <input type="submit" value="Submit">
+    </form>
+  </body>
+  <script src="./hc.js"></script>
+  </html>
