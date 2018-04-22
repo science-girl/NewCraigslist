@@ -1,13 +1,40 @@
 <!DOCTYPE html>
 
 <head>
-
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link rel="stylesheet" type="text/css" href="./viewMyPosts.css">
 </head>
 
 <body>
-  <div><a href="./index.html">go Home</a></div>
-  <div id="post-container"></div>
+  <main role="main" class="container">
+    <div class="container-fluid">
+      <div class="row content">
+        <div class="col-sm-2 sidenav">
+          <p>
+            <h2>new craigslist</h2>
+          </p>
+          </br>
+          <p>
+            <a href="./createPost.html">Create a Post </a>
+          </p>
+          <div class="link">
+            <a href="./index.html">Go Home</a>
+          </div>
+
+        </div>
+        <div class="col-sm-8 text-left">
+          <h1>Vancouver, BC</h1>
+          <hr>
+          <div id="post-container" class="postContainer"></div>
+
+        </div>
+
+      </div>
+    </div>
+  </main>
+
   <script src="./posts.js"></script>
 
 </body>

@@ -23,12 +23,14 @@ function appendPost(date, title, location, details) {
   var postTitle = document.createElement("p");
   postTitle.innerHTML = `<strong>${getMonthOfYear(
     new Date(date).getMonth()
-  )} ${new Date(date).getDate()}</strong> ${title} (${location})`;
+  )} ${new Date(date).getDate()}</strong> ${title} (${location}) `;
   postTitle.setAttribute("class", "title");
 
   var deleteButton = document.createElement("button");
+  deleteButton.setAttribute("class", "btn btn-danger");
   deleteButton.innerHTML = "Delete";
   var editButton = document.createElement("button");
+  editButton.setAttribute("class", "btn btn-primary");
   editButton.innerHTML = "Edit";
 
   var postText = document.createElement("p");
