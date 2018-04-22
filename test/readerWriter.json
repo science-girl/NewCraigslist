@@ -6,6 +6,7 @@
       "FnName": "holoTextWrite",
       "Input": {
         "title": "Great Bike",
+        "category": "ForSale",
         "details":
           "Rode this bike for 10 years. Selling it because I'm moving.",
         "email": "fakeperson@gmail.com",
@@ -20,6 +21,7 @@
       "Input": "%h%",
       "Output": {
         "title": "Great Bike",
+        "category": "ForSale",
         "details":
           "Rode this bike for 10 years. Selling it because I'm moving.",
         "email": "fakeperson@gmail.com",
