@@ -1,9 +1,9 @@
 {
   "Tests": [
     {
-      "Convey": "write a holoText entry",
-      "Zome": "readerWriter",
-      "FnName": "holoTextWrite",
+      "Convey": "write a post to New Craigslist",
+      "Zome": "readAndWritePosts",
+      "FnName": "writePost",
       "Input": {
         "title": "Great Bike",
         "category": "ForSale",
@@ -16,8 +16,8 @@
       "Output": "%h1%"
     },
     {
-      "Convey": "read a holoText entry",
-      "Zome": "readerWriter",
+      "Convey": "read a post from New Craigslist",
+      "Zome": "readAndWritePosts",
       "FnName": "holoTextRead",
       "Input": "%h1%",
       "Output": {

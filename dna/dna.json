@@ -1,9 +1,9 @@
 {
   "Version": 1,
   "UUID": "7846a650-4510-11e8-b5ce-44fb42fffee9",
-  "Name": "HoloWorld",
+  "Name": "NewCraigslist",
   "Properties": {
-    "description": "the Hello World app for HoloWorld",
+    "description": "Holochain app prototyping a new decentralized Craigslist",
     "language": "en"
   },
   "PropertiesSchemaFile": "properties_schema.json",
@@ -15,15 +15,15 @@
   },
   "Zomes": [
     {
-      "Name": "readerWriter",
-      "Description": "read and write data",
-      "CodeFile": "readerWriter.js",
+      "Name": "readAndWritePosts",
+      "Description": "read and write posts",
+      "CodeFile": "readAndWritePosts.js",
       "RibosomeType": "js",
       "BridgeFuncs": null,
       "Config": null,
       "Entries": [
         {
-          "Name": "holoText",
+          "Name": "postData",
           "DataFormat": "json",
           "SchemaFile": "post_schema.json",
           "Sharing": "public"
@@ -50,7 +50,7 @@
           "Exposure": "public"
         },
         {
-          "Name": "holoTextWrite",
+          "Name": "writePost",
           "CallingType": "json",
           "Exposure": "public"
         }

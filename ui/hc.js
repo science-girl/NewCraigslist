@@ -7,7 +7,7 @@ document.getElementById("createPostForm").onsubmit = function onSubmit(event) {
   var email = document.getElementById("emailInput").value;
 
   var xhr = new XMLHttpRequest();
-  var url = "/fn/readerWriter/holoTextWrite";
+  var url = "/fn/readAndWritePosts/writePost";
   xhr.open("POST", url, true);
   xhr.setRequestHeader("Content-type", "application/json");
   var data = JSON.stringify({
