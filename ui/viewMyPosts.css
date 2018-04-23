@@ -2,5 +2,16 @@
   display: inline-block;
 }
 .details {
-  margin: 10px 20px;
+  margin: 10px 50px;
+}
+
+.postContainer {
+  padding-left: 50px;
+}
+.btn{
+  margin: 0 5px;
+  padding: 0.5px 5px;
+}
+.post{
+  padding: 10px;
 }
