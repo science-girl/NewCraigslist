@@ -14,6 +14,28 @@
     "NeighborhoodSize": 0
   },
   "Zomes": [
+      {
+        "Name": "peerVis",
+        "Desription": "show whos online",
+        "CodeFile": "peerVis.js",
+        "RibosomeType": "js",
+        "Config": {
+            "ErrorHandling": "throwErrors"
+        },
+        "Entries": [
+            {
+                "Name": "peerLink",
+                "DataFormat": "links"
+            }
+        ],
+        "Functions": [
+            {
+                "Name": "getPeers",
+                "CallingType": "json",
+                "Exposure": "public"
+            }
+        ]
+    },
     {
       "Name": "readAndWritePosts",
       "Description": "read and write posts",
