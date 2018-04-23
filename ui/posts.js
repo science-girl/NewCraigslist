@@ -5,6 +5,7 @@ window.onload = function() {
 
   for (i = 0; i < posts.length; i++) {
     appendPost(
+      posts[i].category,
       posts[i].timestamp,
       posts[i].title,
       posts[i].city,
@@ -13,17 +14,18 @@ window.onload = function() {
   }
 };
 
-function appendPost(date, title, location, details) {
+function appendPost(category, date, title, location, details) {
   // create post div
   var container = document.getElementById("post-container");
   var postDiv = document.createElement("div");
   postDiv.setAttribute("id", "post");
+  postDiv.setAttribute("class", "post");
   container.appendChild(postDiv);
 
   var postTitle = document.createElement("p");
   postTitle.innerHTML = `<strong>${getMonthOfYear(
     new Date(date).getMonth()
-  )} ${new Date(date).getDate()}</strong> ${title} (${location}) `;
+  )} ${new Date(date).getDate()}</strong> <strong>[${category}]</strong> ${title} (${location}) `;
   postTitle.setAttribute("class", "title");
 
   var deleteButton = document.createElement("button");
