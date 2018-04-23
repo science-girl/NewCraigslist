@@ -8,6 +8,9 @@
     "category": {
       "type": "string"
     },
+    "subcategory": {
+      "type": "string"
+    },
     "city": {
       "type": "string"
     },

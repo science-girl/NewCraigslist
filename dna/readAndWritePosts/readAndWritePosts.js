@@ -6,6 +6,7 @@ function populateHC() {
   writePost({
     title: "Paint my fence?",
     category: "Jobs",
+    subcategory: "customer service",
     city: "Vancouver",
     details:
       "My fence is in need of a new coat of paint and primer. Will pay handsomely.",
@@ -15,6 +16,7 @@ function populateHC() {
   writePost({
     title: "Spectaular backrubs, seeking",
     category: "Jobs",
+    subcategory: "admin",
     city: "Vancouver",
     details: "In need of a great backrub",
     email: "soreBack@gmail.com",
@@ -23,6 +25,7 @@ function populateHC() {
   writePost({
     title: "Paint my fence",
     category: "Personals",
+    subcategory: "missed connections",
     city: "Vancouver",
     details: "please?",
     email: "paint@gmail.com",
@@ -32,14 +35,16 @@ function populateHC() {
   writePost({
     title: "Miniature Home",
     category: "Housing",
+    subcategory: "apartments",
     city: "Vancouver",
     details: "surprisingly spacious",
     email: "mini@gmail.com",
     timestamp: Date.now()
   });
   writePost({
-    title: "Futon",
+    title: "Fridge",
     category: "ForSale",
+    subcategory: "appliances",
     city: "Vancouver",
     details: "like new",
     email: "mini@gmail.com",
