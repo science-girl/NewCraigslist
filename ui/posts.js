@@ -1,20 +1,21 @@
 window.onload = function() {
   var posts = JSON.parse(localStorage.getItem("postsData"));
+  var isCategory = JSON.parse(localStorage.getItem("isCategory"));
 
   console.log(posts);
-
   for (i = 0; i < posts.length; i++) {
     appendPost(
       posts[i].category,
       posts[i].timestamp,
       posts[i].title,
       posts[i].city,
-      posts[i].details
+      posts[i].details,
+      isCategory
     );
   }
 };
 
-function appendPost(category, date, title, location, details) {
+function appendPost(category, date, title, location, details, isCategory) {
   // create post div
   var container = document.getElementById("post-container");
   var postDiv = document.createElement("div");
@@ -25,26 +26,29 @@ function appendPost(category, date, title, location, details) {
   var postTitle = document.createElement("p");
   postTitle.innerHTML = `<strong>${getMonthOfYear(
     new Date(date).getMonth()
-  )} ${new Date(date).getDate()}</strong> <strong>[${category}]</strong> ${title} (${location}) `;
+  )} ${new Date(
+    date
+  ).getDate()}</strong> <strong>[${category}]</strong> ${title} (${location}) `;
   postTitle.setAttribute("class", "title");
-
-  var deleteButton = document.createElement("button");
-  deleteButton.setAttribute("class", "btn btn-danger");
-  deleteButton.innerHTML = "Delete";
-  var editButton = document.createElement("button");
-  editButton.setAttribute("class", "btn btn-primary");
-  editButton.innerHTML = "Edit";
 
   var postText = document.createElement("p");
   postText.innerHTML = `${details}`;
-  postText.setAttribute("class", "details");
+  postText.setAttribute("class", "text-muted"); //"details");
 
   postDiv.appendChild(postTitle);
-  postDiv.appendChild(deleteButton);
-  postDiv.appendChild(editButton);
+  if (!isCategory) {
+    var deleteButton = document.createElement("button");
+    deleteButton.setAttribute("class", "btn btn-link");
+    deleteButton.innerHTML = "Delete";
+    var editButton = document.createElement("button");
+    editButton.setAttribute("class", "btn btn-link");
+    editButton.innerHTML = "Edit";
+    postDiv.appendChild(deleteButton);
+    postDiv.appendChild(editButton);
+  }
+
   postDiv.appendChild(postText);
 }
-
 // Helper function to get month name of the year
 //@param: target date
 const getMonthOfYear = month => {
