@@ -3,6 +3,8 @@ window.onload = function() {
   var isCategory = JSON.parse(localStorage.getItem("isCategory"));
 
   console.log(posts);
+  if (posts.length < 1) noneFound();
+
   for (i = 0; i < posts.length; i++) {
     appendPost(
       posts[i].category,
@@ -14,6 +16,17 @@ window.onload = function() {
     );
   }
 };
+
+function noneFound() {
+  var container = document.getElementById("post-container");
+  var postDiv = document.createElement("div");
+  postDiv.setAttribute("id", "post");
+  postDiv.setAttribute("class", "post");
+  container.appendChild(postDiv);
+  var postText = document.createElement("p");
+  postText.innerHTML = `No Listings Yet`;
+  postDiv.appendChild(postText);
+}
 
 function appendPost(category, date, title, location, details, isCategory) {
   // create post div
