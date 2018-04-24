@@ -94,6 +94,8 @@ function validateCommit(entryName, entry, header, pkg, sources) {
       return true;
     case "city":
       return true;
+    case "category":
+      return true;
     case "cityAndCat":
       return true;
     default:
@@ -130,7 +132,7 @@ function writePost(data) {
   linkCheck("city", data["city"]);
   linkCheck("category", data["category"]);
 
-  commit("cityLinks", {
+  var linkHash = commit("cityLinks", {
     Links: [
       { Base: me, Link: hash, Tag: "postsByUser" },
       {
@@ -150,7 +152,8 @@ function writePost(data) {
       }
     ]
   });
-  return hash;
+
+  return linkHash;
 }
 
 /**
@@ -176,18 +179,33 @@ function retrieveLinks(hash, tag) {
   });
 }
 
+/**
+ * @returns all the posts of the current user
+ **/
 function readYourPosts() {
   return retrieveLinks(App.Agent.Hash, "postsByUser");
 }
 
+/**
+ * @param city name
+ * @returns all the posts for the given city
+ **/
 function readPostsByCity(city) {
   return retrieveLinks(makeHash("city", city), "postsByCity");
 }
 
+/**
+ * @param category name
+ * @returns all the posts for the given category
+ **/
 function readPostsByCategory(category) {
   return retrieveLinks(makeHash("category", category), "postsByCategory");
 }
 
+/**
+ * @param data is a JSON object: {"city":<name_of_city>, "category": <name_of_category}
+ * @returns all the posts for the given city and category
+ **/
 function readPostsByCityAndCategory(data) {
   var hashedCat = makeHash("cityAndCat", data.city + data.category);
   return retrieveLinks(hashedCat, "cityAndCat");

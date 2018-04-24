@@ -13,7 +13,7 @@
         "email": "fakeperson@gmail.com",
         "timestamp": 12345
       },
-      "Output": "%h1%"
+      "Output": "%h%"
     },
     {
       "Convey": "write a post to New Craigslist with a different city",
@@ -28,7 +28,7 @@
         "email": "earnest@gmail.com",
         "timestamp": 12345
       },
-      "Output": "%h1%"
+      "Output": "%h%"
     },
     {
       "Convey":
@@ -43,7 +43,7 @@
         "email": "ktown@gmail.com",
         "timestamp": 12345
       },
-      "Output": "%h1%"
+      "Output": "%h%"
     },
     {
       "Convey": "get all links associated with current user",
@@ -144,7 +144,7 @@
       "Convey": "read a post from New Craigslist",
       "Zome": "readAndWritePosts",
       "FnName": "readPost",
-      "Input": "%h1%",
+      "Input": "%h3%",
       "Output": {
         "title": "Paint my fence?",
         "category": "Personals",
