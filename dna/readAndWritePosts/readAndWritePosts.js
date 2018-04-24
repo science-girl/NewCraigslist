@@ -1,58 +1,4 @@
 /**
- * Populates holochain each time instance restarts
- * This is for dev only and not for production use
- **/
-function populateHC() {
-  writePost({
-    title: "Paint my fence?",
-    category: "Jobs",
-    subcategory: "customer service",
-    city: "Vancouver",
-    details:
-      "My fence is in need of a new coat of paint and primer. Will pay handsomely.",
-    email: "earnest@gmail.com",
-    timestamp: Date.now()
-  });
-  writePost({
-    title: "Spectaular backrubs, seeking",
-    category: "Jobs",
-    subcategory: "admin",
-    city: "Vancouver",
-    details: "In need of a great backrub",
-    email: "soreBack@gmail.com",
-    timestamp: Date.now()
-  });
-  writePost({
-    title: "Paint my fence",
-    category: "Personals",
-    subcategory: "missed connections",
-    city: "Vancouver",
-    details: "please?",
-    email: "paint@gmail.com",
-    timestamp: Date.now()
-  });
-
-  writePost({
-    title: "Miniature Home",
-    category: "Housing",
-    subcategory: "apartments",
-    city: "Vancouver",
-    details: "surprisingly spacious",
-    email: "mini@gmail.com",
-    timestamp: Date.now()
-  });
-  writePost({
-    title: "Fridge",
-    category: "ForSale",
-    subcategory: "appliances",
-    city: "Vancouver",
-    details: "like new",
-    email: "mini@gmail.com",
-    timestamp: Date.now()
-  });
-}
-
-/**
  * @param key is the tag the link is associated with
  * @param link is the plaintext name whose existence we are verifying
  * If the link does not exist in the HC then it is created
@@ -78,8 +24,6 @@ function linkCheck(key, link) {
  * This function is a good place to put any set-up logic if req'd
  **/
 function genesis() {
-  /** Uncomment to populate w/test data for UI
-   populateHC(); **/
   return true;
 }
 
