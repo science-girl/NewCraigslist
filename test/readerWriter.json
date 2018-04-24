@@ -13,7 +13,7 @@
         "email": "fakeperson@gmail.com",
         "timestamp": 12345
       },
-      "Output": "%h%"
+      "Output": "%h4%"
     },
     {
       "Convey": "write a post to New Craigslist with a different city",
@@ -28,7 +28,7 @@
         "email": "earnest@gmail.com",
         "timestamp": 12345
       },
-      "Output": "%h%"
+      "Output": "%h4%"
     },
     {
       "Convey":
@@ -43,7 +43,7 @@
         "email": "ktown@gmail.com",
         "timestamp": 12345
       },
-      "Output": "%h%"
+      "Output": "%h3%"
     },
     {
       "Convey": "get all links associated with current user",

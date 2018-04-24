@@ -59,6 +59,12 @@ function validatePut(data) {
   return true;
 }
 
+function validateDel(entry_type, hash, pkg, sources) {
+  debug(sources);
+  debug(hash);
+  return true;
+}
+
 /**
  * creates a post linked to:
  * - agent hash
@@ -97,7 +103,9 @@ function writePost(data) {
     ]
   });
 
-  return linkHash;
+  debug(hash);
+
+  return hash;
 }
 
 /**
@@ -154,6 +162,11 @@ function readPostsByCityAndCategory(data) {
   var hashedCat = makeHash("cityAndCat", data.city + data.category);
   return retrieveLinks(hashedCat, "cityAndCat");
 }
+
+/**
+ * removes a post iff belongs to the current user
+ **/
+function deletePost() {}
 
 function readPost(hash) {
   // get returns entry corresponding to the hash
