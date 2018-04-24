@@ -73,7 +73,14 @@ function validateDel(entry_type, hash, pkg, sources) {
  * - city and category provided in the data
  **/
 function writePost(data) {
-  var hash = commit("postData", data);
+  var hash;
+  try {
+    hash = commit("postData", data);
+  } catch (exception) {
+    debug("Error writing " + data + exception);
+    return null;
+  }
+
   var me = App.Agent.Hash;
   var cityAndCat = makeHash("cityAndCat", data["city"] + data["category"]);
 
@@ -81,27 +88,31 @@ function writePost(data) {
   linkCheck("cityAndCat", data["city"] + data["category"]);
   linkCheck("city", data["city"]);
   linkCheck("category", data["category"]);
-
-  var linkHash = commit("cityLinks", {
-    Links: [
-      { Base: me, Link: hash, Tag: "postsByUser" },
-      {
-        Base: makeHash("city", data["city"]),
-        Link: hash,
-        Tag: "postsByCity"
-      },
-      {
-        Base: makeHash("category", data["category"]),
-        Link: hash,
-        Tag: "postsByCategory"
-      },
-      {
-        Base: cityAndCat,
-        Link: hash,
-        Tag: "cityAndCat"
-      }
-    ]
-  });
+  try {
+    commit("cityLinks", {
+      Links: [
+        { Base: me, Link: hash, Tag: "postsByUser" },
+        {
+          Base: makeHash("city", data["city"]),
+          Link: hash,
+          Tag: "postsByCity"
+        },
+        {
+          Base: makeHash("category", data["category"]),
+          Link: hash,
+          Tag: "postsByCategory"
+        },
+        {
+          Base: cityAndCat,
+          Link: hash,
+          Tag: "cityAndCat"
+        }
+      ]
+    });
+  } catch (exception) {
+    debug("Error committing links " + exception);
+    return null;
+  }
 
   debug(hash);
 
@@ -164,9 +175,19 @@ function readPostsByCityAndCategory(data) {
 }
 
 /**
+ * @param postHash is the hash of the post to delete
+ * @returns true if the deletion was successful and false otherwise
  * removes a post iff belongs to the current user
  **/
-function deletePost() {}
+function deletePost(postHash) {
+  var deleteMsg = postHash + " deleted by " + App.Agent.Hash;
+  try {
+  } catch (exception) {
+    debug(postHash + " not deleted: " + exception);
+    return false;
+  }
+  return true;
+}
 
 function readPost(hash) {
   // get returns entry corresponding to the hash

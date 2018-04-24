@@ -14,27 +14,27 @@
     "NeighborhoodSize": 0
   },
   "Zomes": [
-      {
-        "Name": "peerVis",
-        "Desription": "show whos online",
-        "CodeFile": "peerVis.js",
-        "RibosomeType": "js",
-        "Config": {
-            "ErrorHandling": "throwErrors"
-        },
-        "Entries": [
-            {
-                "Name": "peerLink",
-                "DataFormat": "links"
-            }
-        ],
-        "Functions": [
-            {
-                "Name": "getPeers",
-                "CallingType": "json",
-                "Exposure": "public"
-            }
-        ]
+    {
+      "Name": "peerVis",
+      "Desription": "show whos online",
+      "CodeFile": "peerVis.js",
+      "RibosomeType": "js",
+      "Config": {
+        "ErrorHandling": "throwErrors"
+      },
+      "Entries": [
+        {
+          "Name": "peerLink",
+          "DataFormat": "links"
+        }
+      ],
+      "Functions": [
+        {
+          "Name": "getPeers",
+          "CallingType": "json",
+          "Exposure": "public"
+        }
+      ]
     },
     {
       "Name": "readAndWritePosts",
@@ -74,6 +74,11 @@
       "Functions": [
         {
           "Name": "readPost",
+          "CallingType": "json",
+          "Exposure": "public"
+        },
+        {
+          "Name": "deletePost",
           "CallingType": "json",
           "Exposure": "public"
         },

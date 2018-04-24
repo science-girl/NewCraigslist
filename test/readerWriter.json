@@ -153,6 +153,21 @@
         "email": "ktown@gmail.com",
         "timestamp": 12345
       }
+    },
+    {
+      "Convey": "delete a post from New Craigslist",
+      "Zome": "readAndWritePosts",
+      "FnName": "deletePost",
+      "Input": "%h3%",
+      "Output": true
+    },
+    {
+      "Convey":
+        "delete a post that has already been removed from New Craigslist",
+      "Zome": "readAndWritePosts",
+      "FnName": "deletePost",
+      "Input": "%h1%",
+      "Output": false
     }
   ]
 }
