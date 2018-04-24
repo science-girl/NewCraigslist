@@ -60,9 +60,7 @@ function validatePut(data) {
 }
 
 function validateDel(entry_type, hash, pkg, sources) {
-  debug(sources);
-  debug(hash);
-  return true;
+  return get(hash) !== null;
 }
 
 /**
@@ -182,6 +180,7 @@ function readPostsByCityAndCategory(data) {
 function deletePost(postHash) {
   var deleteMsg = postHash + " deleted by " + App.Agent.Hash;
   try {
+    debug("delete hash " + remove(postHash, deleteMsg));
   } catch (exception) {
     debug(postHash + " not deleted: " + exception);
     return false;
