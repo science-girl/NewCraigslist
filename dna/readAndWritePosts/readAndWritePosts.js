@@ -60,7 +60,7 @@ function populateHC() {
 function linkCheck(key, link) {
   var hashedKeyAndLink = makeHash(key, link);
   if (get(hashedKeyAndLink) === null) {
-    console.log(link + " DNE");
+    debug(link + " does not exist");
     try {
       commit(key, link);
     } catch (exception) {
@@ -68,9 +68,15 @@ function linkCheck(key, link) {
     }
   }
   if (get(hashedKeyAndLink) !== null) {
-    console.log("created " + link);
+    debug("created " + link);
   }
 }
+
+/**
+ * Whenever the app is restarted, the chain is re-generated.
+ * The genesis function gets called each time this happens.
+ * This function is a good place to put any set-up logic if req'd
+ **/
 function genesis() {
   /** Uncomment to populate w/test data for UI
    populateHC(); **/
@@ -112,6 +118,7 @@ function validatePut(data) {
  * - agent hash
  * - city provided in the data
  * - category provided in the data
+ * - city and category provided in the data
  **/
 function writePost(data) {
   var hash = commit("postData", data);
