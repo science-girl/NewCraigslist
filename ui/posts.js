@@ -34,7 +34,6 @@ function appendPost(category, date, title, location, details, isCategory) {
   var postText = document.createElement("p");
   postText.innerHTML = `${details}`;
   postText.setAttribute("class", "text-muted"); //"details");
-
   postDiv.appendChild(postTitle);
   if (!isCategory) {
     var deleteButton = document.createElement("button");

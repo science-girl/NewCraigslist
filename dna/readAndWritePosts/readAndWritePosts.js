@@ -146,54 +146,44 @@ function writePost(data) {
   return hash;
 }
 
-function readYourPosts() {
-  var agentHash = App.Agent.Hash;
-  var allLinksForAgent = getLinks(agentHash, "postsByUser", {
-    Load: true
-  });
-  debug("Number of links: " + allLinksForAgent.length);
-  return allLinksForAgent.map(function(link) {
+/**
+ * @param hash is hashedLink we are retrieving (ie. target value)
+ * @param tag is the tag given when the link was created (ie. the relationship btwn link and base)
+ * @returns an array of entries matching the hash given
+ **/
+function retrieveLinks(hash, tag) {
+  // if link doesn't exist then return empty
+  if (get(hash) === null) return [];
+
+  try {
+    var allLinks = getLinks(hash, tag, {
+      Load: true
+    });
+  } catch (exception) {
+    debug("Unable to retrieve links " + exception);
+  }
+  debug("Number of links: " + allLinks.length);
+  return allLinks.map(function(link) {
     //debug(JSON.stringify(link));
     return link.Entry;
   });
+}
+
+function readYourPosts() {
+  return retrieveLinks(App.Agent.Hash, "postsByUser");
 }
 
 function readPostsByCity(city) {
-  var hashedCity = makeHash("city", city);
-  var linksForCity = getLinks(hashedCity, "postsByCity", { Load: true });
-
-  debug("Number of links: " + linksForCity.length);
-  return linksForCity.map(function(link) {
-    //debug(JSON.stringify(link));
-    return link.Entry;
-  });
+  return retrieveLinks(makeHash("city", city), "postsByCity");
 }
 
 function readPostsByCategory(category) {
-  debug(category);
-  var hashedCat = makeHash("category", category);
-  var linksForCat = getLinks(hashedCat, "postsByCategory", { Load: true });
-
-  debug("Number of links: " + linksForCat.length);
-  return linksForCat.map(function(link) {
-    //debug(JSON.stringify(link));
-    return link.Entry;
-  });
+  return retrieveLinks(makeHash("category", category), "postsByCategory");
 }
 
-function readPostsByCityAndCategory(params) {
-  var hashedCat = makeHash("cityAndCat", params.city + params.category);
-  if (get(hashedCat) === null) {
-    console.log("hash dne");
-    return [];
-  }
-  var linksForCat = getLinks(hashedCat, "cityAndCat", { Load: true });
-
-  debug("Number of links: " + linksForCat.length);
-  return linksForCat.map(function(link) {
-    //debug(JSON.stringify(link));
-    return link.Entry;
-  });
+function readPostsByCityAndCategory(data) {
+  var hashedCat = makeHash("cityAndCat", data.city + data.category);
+  return retrieveLinks(hashedCat, "cityAndCat");
 }
 
 function readPost(hash) {
