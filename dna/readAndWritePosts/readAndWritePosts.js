@@ -52,21 +52,34 @@ function populateHC() {
   });
 }
 
+/**
+ * @param key is the tag the link is associated with
+ * @param link is the plaintext name whose existence we are verifying
+ * If the link does not exist in the HC then it is created
+ **/
+function linkCheck(key, link) {
+  var hashedKeyAndLink = makeHash(key, link);
+  if (get(hashedKeyAndLink) === null) {
+    console.log(link + " DNE");
+    try {
+      commit(key, link);
+    } catch (exception) {
+      debug(exception);
+    }
+  }
+  if (get(hashedKeyAndLink) !== null) {
+    console.log("created " + link);
+  }
+}
 function genesis() {
-  populateHC();
-  commit("city", "Vancouver");
-  commit("city", "Kelowna");
-  commit("cityAndCat", "KelownaJobs");
-  commit("cityAndCat", "VancouverJobs");
-  commit("cityAndCat", "VancouverForSale");
-  commit("cityAndCat", "VancouverHousing");
-  commit("cityAndCat", "VancouverPersonals");
-
+  /** Uncomment to populate w/test data for UI
+   populateHC(); **/
   return true;
 }
 
-// this is called whenever a write/commmit
-// call is made
+/**
+ * Called whenever a write/commmit call is made
+ **/
 function validateCommit(entryName, entry, header, pkg, sources) {
   switch (entryName) {
     case "cityLinks":
@@ -86,7 +99,7 @@ function validateLink(links) {
   return true;
 }
 
-function validateLinkPkg(links) {
+function validateLinkPkg(entryType) {
   return null;
 }
 
@@ -105,11 +118,10 @@ function writePost(data) {
   var me = App.Agent.Hash;
   var cityAndCat = makeHash("cityAndCat", data["city"] + data["category"]);
 
-  // TODO: if cityAndCat does not yet exist, create it:
-  if (get(cityAndCat) === null) {
-    console.log(data["city"] + data["category"] + " dne");
-    commit("cityAndCat", cityAndCat);
-  }
+  // Check and create any links that may not yet exist
+  linkCheck("cityAndCat", data["city"] + data["category"]);
+  linkCheck("city", data["city"]);
+  linkCheck("category", data["category"]);
 
   commit("cityLinks", {
     Links: [
