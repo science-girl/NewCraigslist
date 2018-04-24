@@ -2,7 +2,7 @@
 
 A distributed Craigslist-like Holochain app prototype developed during the Vancouver Holochain Hackathon!
 
-![CreatePost](createPost.png)
+![CreatePost](newCraigsList.gif)
 
 ## Getting Started
 
