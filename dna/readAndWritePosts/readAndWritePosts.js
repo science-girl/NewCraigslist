@@ -33,6 +33,7 @@ function linkCheck(key, link) {
     debug(link + " does not exist");
     try {
       commit(key, link);
+      debug("Created " + link);
     } catch (exception) {
       debug(exception);
     }
@@ -82,6 +83,10 @@ function validatePut(data) {
 
 function validateDel(entry_type, hash, pkg, sources) {
   return get(hash) !== null;
+}
+
+function validateMod(entry_type, entry, header, replaces, pkg, sources) {
+  return true;
 }
 
 /**
@@ -135,6 +140,7 @@ function writePost(data) {
     debug("Error committing links " + exception);
     return null;
   }
+  //debug(hash);
   return hash;
 }
 
@@ -154,7 +160,7 @@ function retrieveLinks(hash, tag) {
   } catch (exception) {
     debug("Unable to retrieve links " + exception);
   }
-  debug("Number of links: " + allLinks.length);
+  //debug("Number of links: " + allLinks.length);
   return allLinks.map(function(link) {
     //debug(JSON.stringify(link));
     return link.Entry;
@@ -194,12 +200,19 @@ function readPostsByCityAndCategory(data) {
 }
 
 /**
- * @param data is the post as a JSON object
+ * @param data is a JSON object {"post":{<new data>}, "oldHash": "<previous_hash>"}
+ * @returns hash of the updated post
  **/
 function editPost(data) {
-  var oldHash = makeHash(POST_DATA, data);
-  var hash = update(POST_DATA, data, oldHash);
-  //TODO: add try/catch and tests
+  var hash;
+  try {
+    hash = update(POST_DATA, data.post, data.oldHash);
+  } catch (exception) {
+    debug("Update not made: " + exception);
+    return data.oldHash;
+  }
+
+  return hash;
 }
 
 /**

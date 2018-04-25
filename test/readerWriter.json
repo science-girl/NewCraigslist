@@ -203,6 +203,81 @@
       "FnName": "removePost",
       "Input": "%h2%",
       "Output": true
+    },
+    {
+      "Convey": "get all links with the given city (Kelowna)",
+      "Zome": "readAndWritePosts",
+      "FnName": "readPostsByCity",
+      "Input": "Kelowna",
+      "Output": [
+        {
+          "title": "Paint my fence?",
+          "category": "Jobs",
+          "city": "Kelowna",
+          "details":
+            "My fence is in need of a new coat of paint and primer. Will pay handsomely.",
+          "email": "earnest@gmail.com",
+          "timestamp": 12345
+        }
+      ]
+    },
+    {
+      "Convey": "add to New Craigslist",
+      "Zome": "readAndWritePosts",
+      "FnName": "writePost",
+      "Input": {
+        "title": "Free Cat",
+        "category": "ForSale",
+        "city": "Vancouver",
+        "details": "A wonderful companion. Loves belly rubs!",
+        "email": "ktown@gmail.com",
+        "timestamp": 123456
+      },
+      "Output": "%h1%"
+    },
+    {
+      "Convey": "edit a post existing on New Craigslist",
+      "Zome": "readAndWritePosts",
+      "FnName": "editPost",
+      "Input": {
+        "post": {
+          "title": "Free Cat, Loves Kids",
+          "category": "ForSale",
+          "city": "Vancouver",
+          "details":
+            "A wonderful companion. Loves belly rubs! Serious offers only.",
+          "email": "ktown@gmail.com",
+          "timestamp": 123456
+        },
+        "oldHash": "%h1%"
+      },
+      "Output": "%h%"
+    },
+    {
+      "Convey": "get all links with the given city (Vancouver)",
+      "Zome": "readAndWritePosts",
+      "FnName": "readPostsByCity",
+      "Input": "Vancouver",
+      "Output": [
+        {
+          "title": "Free Cat, Loves Kids",
+          "category": "ForSale",
+          "city": "Vancouver",
+          "details":
+            "A wonderful companion. Loves belly rubs! Serious offers only.",
+          "email": "ktown@gmail.com",
+          "timestamp": 123456
+        },
+        {
+          "title": "Great Bike",
+          "category": "ForSale",
+          "city": "Vancouver",
+          "details":
+            "Rode this bike for 10 years. Selling it because I'm moving.",
+          "email": "fakeperson@gmail.com",
+          "timestamp": 12345
+        }
+      ]
     }
   ]
 }
