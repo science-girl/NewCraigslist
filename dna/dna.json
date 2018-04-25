@@ -78,7 +78,17 @@
           "Exposure": "public"
         },
         {
+          "Name": "removePost",
+          "CallingType": "json",
+          "Exposure": "public"
+        },
+        {
           "Name": "deletePost",
+          "CallingType": "json",
+          "Exposure": "public"
+        },
+        {
+          "Name": "deleteLinks",
           "CallingType": "json",
           "Exposure": "public"
         },

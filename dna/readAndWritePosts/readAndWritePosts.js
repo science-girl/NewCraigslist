@@ -5,6 +5,20 @@
  **/
 function linkCheck(key, link) {
   var hashedKeyAndLink = makeHash(key, link);
+
+  /**
+   * This block takes care of the case where duplicate entry has been deleted
+   * and is then re-linked. get returns an error that the link has been deleted
+   * This may be sort of an edge case, although I could see how someone might
+   * add, remove, then re-add the same post (uniqueness is determined by link values, not timestamp)
+   **/
+  try {
+    get(hashedKeyAndLink);
+  } catch (e) {
+    debug(e);
+    commit(key, link);
+  }
+
   if (get(hashedKeyAndLink) === null) {
     debug(link + " does not exist");
     try {
@@ -12,9 +26,6 @@ function linkCheck(key, link) {
     } catch (exception) {
       debug(exception);
     }
-  }
-  if (get(hashedKeyAndLink) !== null) {
-    debug("created " + link);
   }
 }
 
@@ -86,6 +97,7 @@ function writePost(data) {
   linkCheck("cityAndCat", data["city"] + data["category"]);
   linkCheck("city", data["city"]);
   linkCheck("category", data["category"]);
+
   try {
     commit("cityLinks", {
       Links: [
@@ -111,9 +123,6 @@ function writePost(data) {
     debug("Error committing links " + exception);
     return null;
   }
-
-  debug(hash);
-
   return hash;
 }
 
@@ -175,14 +184,71 @@ function readPostsByCityAndCategory(data) {
 /**
  * @param postHash is the hash of the post to delete
  * @returns true if the deletion was successful and false otherwise
- * removes a post iff belongs to the current user
+ **/
+function removePost(postHash) {
+  if (deleteLinks(postHash)) {
+    return deletePost(postHash);
+  }
+  return false;
+}
+
+/**
+ * @param postHash is the hash of the post to delete
+ * @returns true if the deletion was successful and false otherwise
  **/
 function deletePost(postHash) {
   var deleteMsg = postHash + " deleted by " + App.Agent.Hash;
   try {
-    debug("delete hash " + remove(postHash, deleteMsg));
+    remove(postHash, deleteMsg);
   } catch (exception) {
-    debug(postHash + " not deleted: " + exception);
+    //debug(postHash + " not deleted: " + exception);
+    return false;
+  }
+  return true;
+}
+
+/**
+ * @param postHash is the hash of the post to delete
+ * @returns true if the links were deleted and false otherwise
+ **/
+function deleteLinks(postHash) {
+  var me = App.Agent.Hash;
+  var data = get(postHash);
+
+  if (data == null) return false;
+
+  var cityAndCat = makeHash("cityAndCat", data["city"] + data["category"]);
+  try {
+    commit("cityLinks", {
+      Links: [
+        {
+          Base: me,
+          Link: postHash,
+          Tag: "postsByUser",
+          LinkAction: HC.LinkAction.Del
+        },
+        {
+          Base: makeHash("city", data["city"]),
+          Link: postHash,
+          Tag: "postsByCity",
+          LinkAction: HC.LinkAction.Del
+        },
+        {
+          Base: makeHash("category", data["category"]),
+          Link: postHash,
+          Tag: "postsByCategory",
+          LinkAction: HC.LinkAction.Del
+        },
+        {
+          Base: cityAndCat,
+          Link: postHash,
+          Tag: "cityAndCat",
+          LinkAction: HC.LinkAction.Del
+        }
+      ]
+    });
+  } catch (exception) {
+    debug("Links not deleted: " + exception);
     return false;
   }
   return true;

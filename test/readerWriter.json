@@ -155,11 +155,25 @@
       }
     },
     {
+      "Convey": "delete links to a post",
+      "Zome": "readAndWritePosts",
+      "FnName": "deleteLinks",
+      "Input": "%h3%",
+      "Output": true
+    },
+    {
       "Convey": "delete a post from New Craigslist",
       "Zome": "readAndWritePosts",
       "FnName": "deletePost",
       "Input": "%h3%",
       "Output": true
+    },
+    {
+      "Convey": "delete links to a post that has already been deleted",
+      "Zome": "readAndWritePosts",
+      "FnName": "deleteLinks",
+      "Input": "%h1%",
+      "Output": false
     },
     {
       "Convey":
@@ -168,6 +182,27 @@
       "FnName": "deletePost",
       "Input": "%h1%",
       "Output": false
+    },
+    {
+      "Convey": "add deleted post back to New Craigslist",
+      "Zome": "readAndWritePosts",
+      "FnName": "writePost",
+      "Input": {
+        "title": "Paint my fence?",
+        "category": "Personals",
+        "city": "Kelowna",
+        "details": "And other indoor sports",
+        "email": "ktown@gmail.com",
+        "timestamp": 123456
+      },
+      "Output": "%h2%"
+    },
+    {
+      "Convey": "remove post and links from New Craigslist",
+      "Zome": "readAndWritePosts",
+      "FnName": "removePost",
+      "Input": "%h2%",
+      "Output": true
     }
   ]
 }
