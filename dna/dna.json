@@ -78,6 +78,11 @@
           "Exposure": "public"
         },
         {
+          "Name": "editPost",
+          "CallingType": "json",
+          "Exposure": "public"
+        },
+        {
           "Name": "removePost",
           "CallingType": "json",
           "Exposure": "public"

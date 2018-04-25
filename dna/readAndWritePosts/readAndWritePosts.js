@@ -1,3 +1,13 @@
+// CONSTANTS
+var CITY_LINKS = "cityLinks";
+var CITY = "city";
+var POST_DATA = "postData";
+var CATEGORY = "category";
+var CITY_AND_CATEGORY = "cityAndCat";
+var POSTS_BY_USER = "postsByUser";
+var POSTS_BY_CITY = "postsByCity";
+var POSTS_BY_CATEGORY = "postsByCategory";
+
 /**
  * @param key is the tag the link is associated with
  * @param link is the plaintext name whose existence we are verifying
@@ -43,15 +53,15 @@ function genesis() {
  **/
 function validateCommit(entryName, entry, header, pkg, sources) {
   switch (entryName) {
-    case "cityLinks":
+    case CITY_LINKS:
       return true;
-    case "postData":
+    case POST_DATA:
       return true;
-    case "city":
+    case CITY:
       return true;
-    case "category":
+    case CATEGORY:
       return true;
-    case "cityAndCat":
+    case CITY_AND_CATEGORY:
       return true;
     default:
       return false;
@@ -75,6 +85,8 @@ function validateDel(entry_type, hash, pkg, sources) {
 }
 
 /**
+ * @param data is the post as a JSON object
+ * @returns hash of the data from the commit
  * creates a post linked to:
  * - agent hash
  * - city provided in the data
@@ -84,38 +96,38 @@ function validateDel(entry_type, hash, pkg, sources) {
 function writePost(data) {
   var hash;
   try {
-    hash = commit("postData", data);
+    hash = commit(POST_DATA, data);
   } catch (exception) {
     debug("Error writing " + data + exception);
     return null;
   }
 
   var me = App.Agent.Hash;
-  var cityAndCat = makeHash("cityAndCat", data["city"] + data["category"]);
+  var cityAndCat = makeHash(CITY_AND_CATEGORY, data[CITY] + data[CATEGORY]);
 
   // Check and create any links that may not yet exist
-  linkCheck("cityAndCat", data["city"] + data["category"]);
-  linkCheck("city", data["city"]);
-  linkCheck("category", data["category"]);
+  linkCheck(CITY_AND_CATEGORY, data[CITY] + data[CATEGORY]);
+  linkCheck(CITY, data[CITY]);
+  linkCheck(CATEGORY, data[CATEGORY]);
 
   try {
-    commit("cityLinks", {
+    commit(CITY_LINKS, {
       Links: [
-        { Base: me, Link: hash, Tag: "postsByUser" },
+        { Base: me, Link: hash, Tag: POSTS_BY_USER },
         {
-          Base: makeHash("city", data["city"]),
+          Base: makeHash(CITY, data[CITY]),
           Link: hash,
-          Tag: "postsByCity"
+          Tag: POSTS_BY_CITY
         },
         {
-          Base: makeHash("category", data["category"]),
+          Base: makeHash(CATEGORY, data[CATEGORY]),
           Link: hash,
-          Tag: "postsByCategory"
+          Tag: POSTS_BY_CATEGORY
         },
         {
           Base: cityAndCat,
           Link: hash,
-          Tag: "cityAndCat"
+          Tag: CITY_AND_CATEGORY
         }
       ]
     });
@@ -153,7 +165,7 @@ function retrieveLinks(hash, tag) {
  * @returns all the posts of the current user
  **/
 function readYourPosts() {
-  return retrieveLinks(App.Agent.Hash, "postsByUser");
+  return retrieveLinks(App.Agent.Hash, POSTS_BY_USER);
 }
 
 /**
@@ -161,7 +173,7 @@ function readYourPosts() {
  * @returns all the posts for the given city
  **/
 function readPostsByCity(city) {
-  return retrieveLinks(makeHash("city", city), "postsByCity");
+  return retrieveLinks(makeHash(CITY, city), POSTS_BY_CITY);
 }
 
 /**
@@ -169,7 +181,7 @@ function readPostsByCity(city) {
  * @returns all the posts for the given category
  **/
 function readPostsByCategory(category) {
-  return retrieveLinks(makeHash("category", category), "postsByCategory");
+  return retrieveLinks(makeHash(CATEGORY, category), POSTS_BY_CATEGORY);
 }
 
 /**
@@ -177,8 +189,17 @@ function readPostsByCategory(category) {
  * @returns all the posts for the given city and category
  **/
 function readPostsByCityAndCategory(data) {
-  var hashedCat = makeHash("cityAndCat", data.city + data.category);
-  return retrieveLinks(hashedCat, "cityAndCat");
+  var hashedCat = makeHash(CITY_AND_CATEGORY, data.city + data.category);
+  return retrieveLinks(hashedCat, CITY_AND_CATEGORY);
+}
+
+/**
+ * @param data is the post as a JSON object
+ **/
+function editPost(data) {
+  var oldHash = makeHash(POST_DATA, data);
+  var hash = update(POST_DATA, data, oldHash);
+  //TODO: add try/catch and tests
 }
 
 /**
@@ -217,32 +238,32 @@ function deleteLinks(postHash) {
 
   if (data == null) return false;
 
-  var cityAndCat = makeHash("cityAndCat", data["city"] + data["category"]);
+  var cityAndCat = makeHash(CITY_AND_CATEGORY, data[CITY] + data[CATEGORY]);
   try {
-    commit("cityLinks", {
+    commit(CITY_LINKS, {
       Links: [
         {
           Base: me,
           Link: postHash,
-          Tag: "postsByUser",
+          Tag: POSTS_BY_USER,
           LinkAction: HC.LinkAction.Del
         },
         {
-          Base: makeHash("city", data["city"]),
+          Base: makeHash(CITY, data[CITY]),
           Link: postHash,
-          Tag: "postsByCity",
+          Tag: POSTS_BY_CITY,
           LinkAction: HC.LinkAction.Del
         },
         {
-          Base: makeHash("category", data["category"]),
+          Base: makeHash(CATEGORY, data[CATEGORY]),
           Link: postHash,
-          Tag: "postsByCategory",
+          Tag: POSTS_BY_CATEGORY,
           LinkAction: HC.LinkAction.Del
         },
         {
           Base: cityAndCat,
           Link: postHash,
-          Tag: "cityAndCat",
+          Tag: CITY_AND_CATEGORY,
           LinkAction: HC.LinkAction.Del
         }
       ]
