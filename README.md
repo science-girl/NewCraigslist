@@ -25,3 +25,6 @@ Lindsey Woo and QingXin Yuan
 ## Acknowledgements
 
 Thank you to Connor, Art, and all the organizers of the Holochain Hackathon!
+
+## Additions
+Check out this cool [article explaining how to add querying by Willem Olding](https://hackmd.io/LPHDLgpiTWmmrI88UPzySg#) 
